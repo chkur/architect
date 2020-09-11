@@ -4,7 +4,7 @@ Defines features for the Django ORM.
 
 from django.conf import settings
 from django.db import router, connections, transaction
-from django.db.models.fields import FieldDoesNotExist
+from django.core.exceptions import FieldDoesNotExist
 from django.db.utils import ConnectionDoesNotExist
 from django.utils.functional import cached_property
 
@@ -16,6 +16,7 @@ class ConnectionMixin(object):
     """
     Provides support for multiple database connections.
     """
+
     @property
     def database(self):
         return self.options.get('db', router.db_for_write(self.model_cls))
